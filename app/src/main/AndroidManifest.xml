@@ -9,7 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".VendorAddFood"></activity>
+        <activity android:name=".VendorOrderDisplay" />
+        <activity android:name=".VendorHomeScreen" />
+        <activity android:name=".UserAccountDisplay" />
+        <activity android:name=".FoodDisplay" />
+        <activity android:name=".RestaurantDisplay" />
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
