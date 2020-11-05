@@ -1,7 +1,6 @@
 package com.example.mobilemerchants;
 
 import com.parse.Parse;
-import com.parse.ParseObject;
 import android.app.Application;
 
 public class ParseApplication extends Application{
