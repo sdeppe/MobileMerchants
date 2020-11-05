@@ -9,7 +9,6 @@ public class ParseApplication extends Application{
     @Override
     public void onCreate() {
         super.onCreate();
-
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("JgmH06Ve07EoafgYjGVUQxhvujnbY9aXx7ksHntR")
                 .clientKey("ERu4Mpfxqa91coM6hnzhj043ibGwqRA73jF1qUzp")
