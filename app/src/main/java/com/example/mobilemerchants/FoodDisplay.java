@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 public class FoodDisplay extends AppCompatActivity {
 
+    public static final String TAG = "FoodDisplay";
+
     TextView tvResturantName;
     RecyclerView rvFoodDisplay;
     Button btnGoBack;
