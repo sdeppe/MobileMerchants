@@ -25,7 +25,13 @@ public class FoodDisplay extends AppCompatActivity {
         btnGoBack = findViewById(R.id.btnGoBack);
 
         // todo set restaurant name
+
+
+
+
         // todo set RecycleViewer
+
+
 
         btnGoBack.setOnClickListener(new View.OnClickListener() {
             @Override
