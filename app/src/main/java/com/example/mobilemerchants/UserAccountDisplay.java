@@ -47,7 +47,7 @@ public class UserAccountDisplay extends AppCompatActivity {
 
 
 
-        // todo update account info if entered
+
         // todo set RecycleView with user's past orders if any
 
 
