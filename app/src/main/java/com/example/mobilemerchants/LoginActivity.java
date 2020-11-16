@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -43,13 +44,13 @@ public class LoginActivity extends AppCompatActivity {
         // todo verify account in database
         // send to right screen depending on account type
 
-        btnLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, RestaurantDisplay.class);
-                startActivity(i);
-            }
-        });
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(LoginActivity.this, UserAccountDisplay.class);
+//                startActivity(i);
+//            }
+//        });
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,29 +67,47 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
-    }
 
-    private void loginUser(String username, String password) {
-        Log.i(TAG, "Attempting to login user " + username);
-        // TODO: navigate to the main activity if the user has signed in properly
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
+
+        btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
-                    // TODO: better error handling
-                    Toast.makeText(LoginActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Issue with login", e);
-                    return;
+            public void onClick(View view) {
+
+
+
+                if (TextUtils.isEmpty(etUsername.getText())) {
+                    etUsername.setError("User name is required!");
+                } else if (TextUtils.isEmpty(etPassword.getText())) {
+                    etPassword.setError("Password is required");
+                } else {
+                    ParseUser.logInInBackground(etUsername.getText().toString(),
+                            etPassword.getText().toString(),
+                            new LogInCallback() {
+
+                                @Override
+                                public void done(ParseUser user, ParseException e) {
+                                    if (user != null) {
+                                        // TODO: better error handling
+                                        goMainActivity();
+                                        Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
+                                        Intent i = new Intent(LoginActivity.this, UserAccountDisplay.class);
+                                        startActivity(i);
+                                    } else {
+                                        ParseUser.logOut();
+                                        Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+
+                            });
+
+
                 }
-                // TODO: navigate to the main activity if the user has signed in properly
-                goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
         });
     }
-
-    private void goMainActivity() {
-        Intent i = new Intent(this, MainActivity.class);
+    private void goMainActivity(){
+        Intent i = new Intent(this, UserAccountDisplay.class);
         startActivity(i);
         finish();
     }
