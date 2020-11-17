@@ -7,9 +7,7 @@
     android:orientation="vertical"
     tools:context=".RestaurantDisplay">
 
-    <include
-        layout="@layout/appbar"
-        ></include>
+    <include layout="@layout/appbar" />
 
     <Button
         android:id="@+id/btnEditProfile"
@@ -25,7 +23,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
-        android:id="@+id/tvResturant"
+        android:id="@+id/tvRestaurant"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Resturants"
@@ -41,13 +39,13 @@
         app:layout_constraintVertical_bias="0.029" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvResturants"
+        android:id="@+id/rvRestaurants"
         android:layout_width="match_parent"
         android:layout_height="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvResturant" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurant" />
 
 
 </LinearLayout>
