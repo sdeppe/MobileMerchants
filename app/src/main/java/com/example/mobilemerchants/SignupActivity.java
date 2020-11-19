@@ -11,10 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.GetCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class SignupActivity extends AppCompatActivity {
@@ -75,18 +77,37 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
                 // TODO: navigate to the main activity if the user has signed in properly
-                ParseObject userInfo = new ParseObject("GameScore");
+                ParseObject userInfo = new ParseObject("Account");
                 userInfo.put("password", password);
                 userInfo.put("username", username);
                 userInfo.put("role", etRole);
                 userInfo.put("firstName", etFirstName);
                 userInfo.put("lastName", etLastName);
                 userInfo.saveInBackground();
+                checkUser();
                 returnToMain();
-                Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+
             }
         });
+
     }
+//      Checks if user has already been saved to database
+        private void checkUser(){
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Account");
+            query.getInBackground("username", new GetCallback<ParseObject>() {
+                public void done(ParseObject object, ParseException e) {
+                    if (e == null) {
+                        // object will be account
+                        Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        // something went wrong
+                        Toast.makeText(SignupActivity.this, "Error with account!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+        }
 
     //Return to the main screen
         private void returnToMain(){
