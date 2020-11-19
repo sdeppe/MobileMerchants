@@ -78,6 +78,9 @@ public class SignupActivity extends AppCompatActivity {
                 ParseObject userInfo = new ParseObject("GameScore");
                 userInfo.put("password", password);
                 userInfo.put("username", username);
+                userInfo.put("role", etRole);
+                userInfo.put("firstName", etFirstName);
+                userInfo.put("lastName", etLastName);
                 userInfo.saveInBackground();
                 returnToMain();
                 Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT).show();
