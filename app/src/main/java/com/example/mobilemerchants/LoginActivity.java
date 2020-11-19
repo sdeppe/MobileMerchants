@@ -83,7 +83,12 @@ public class LoginActivity extends AppCompatActivity {
                                         // TODO: better error handling
 
                                         Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
+
                                         goMainActivity();
+
+                                        Intent i = new Intent(LoginActivity.this, RestaurantDisplay.class);
+                                        startActivity(i);
+
                                     } else {
                                         ParseUser.logOut();
                                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -99,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goMainActivity(){
-        Intent i = new Intent(this, UserAccountDisplay.class);
+        Intent i = new Intent(this, RestaurantDisplay.class);
         startActivity(i);
         finish();
     }

@@ -1,15 +1,18 @@
 package com.example.mobilemerchants;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toolbar;
 
 import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
 import com.example.mobilemerchants.Adapters.UserAccount;
@@ -41,6 +44,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
         queryRestaurants();
 
         toolbar = findViewById(R.id.myToolBar);
+
         setSupportActionBar(toolbar);
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
@@ -88,6 +93,9 @@ public class UserAccountDisplay extends AppCompatActivity  {
             }
         });
     }
+
+
+
     private void queryRestaurants() {
         ParseQuery<UserAccount> query = ParseQuery.getQuery(UserAccount.class);
         query.findInBackground(new FindCallback<UserAccount>() {

@@ -1,10 +1,12 @@
 package com.example.mobilemerchants;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,17 +26,21 @@ import java.util.List;
 
 public class FoodDisplay extends AppCompatActivity {
 
-    public static final String TAG = "RestaurantDisplay";
-
     private Toolbar toolbar;
     TextView tvFoodName;
     TextView tvFoodPrice;
+
+    public static final String TAG = "FoodDisplay";
+
+    TextView tvResturantName;
+
     RecyclerView rvFoodDisplay;
     Button btnGoBack;
 
     List<Food> allOrders;
     FoodItemAdapter adapter;
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
