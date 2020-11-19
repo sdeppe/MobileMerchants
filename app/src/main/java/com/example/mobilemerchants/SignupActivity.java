@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 public class SignupActivity extends AppCompatActivity {
@@ -50,29 +51,18 @@ public class SignupActivity extends AppCompatActivity {
                 //Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                 //startActivity(i);
 
-                if( TextUtils.isEmpty(etFirstName.getText()))
-                    etFirstName.setError("First Name is Check!!!");
-                else if(TextUtils.isEmpty(etLastName.getText()))
-                    etLastName.setError("Last name is required");
-                else if(TextUtils.isEmpty(etPassword.getText())){
-                    etPassword.setError("Password is required");
-                }else if(TextUtils.isEmpty(etUsername.getText())){
-                    etUsername.setError("Username is required");
-                }else if(TextUtils.isEmpty(etRole.getText())){
-                    etRole.setError("Role is required");
-                }else {
 
-                    Log.i(TAG, "onClick login button");
-                    String username = etUsername.getText().toString();
-                    String password = etPassword.getText().toString();
-                    loginUser(username, password);
+                Log.i(TAG, "onClick login button");
+                String username = etUsername.getText().toString();
+                String password = etPassword.getText().toString();
+                createUser(username, password);
 
-                }
+
             }
         });
     }
 
-    private void loginUser(String username, String password) {
+    private void createUser(final String username, final String password) {
         Log.i(TAG, "Attempting to login user " + username);
         // TODO: navigate to the main activity if the user has signed in properly
         ParseUser.logInInBackground(username, password, new LogInCallback() {
@@ -85,6 +75,10 @@ public class SignupActivity extends AppCompatActivity {
                     return;
                 }
                 // TODO: navigate to the main activity if the user has signed in properly
+                ParseObject userInfo = new ParseObject("GameScore");
+                userInfo.put("password", password);
+                userInfo.put("username", username);
+                userInfo.saveInBackground();
                 returnToMain();
                 Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
