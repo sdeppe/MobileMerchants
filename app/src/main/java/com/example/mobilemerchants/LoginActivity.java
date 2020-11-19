@@ -86,8 +86,8 @@ public class LoginActivity extends AppCompatActivity {
 
                                         goMainActivity();
 
-                                        Intent i = new Intent(LoginActivity.this, RestaurantDisplay.class);
-                                        startActivity(i);
+//                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
+//                                        startActivity(i);
 
                                     } else {
                                         ParseUser.logOut();
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goMainActivity(){
-        Intent i = new Intent(this, RestaurantDisplay.class);
+        Intent i = new Intent(this, FoodDisplay.class);
         startActivity(i);
         finish();
     }
