@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -32,7 +32,7 @@ public class FoodDisplay extends AppCompatActivity {
 
     public static final String TAG = "FoodDisplay";
 
-    TextView tvResturantName;
+
 
     RecyclerView rvFoodDisplay;
     Button btnGoBack;
@@ -64,7 +64,7 @@ public class FoodDisplay extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(FoodDisplay.this, UserAccountDisplay.class);
-                Log.i(TAG, "Profile in Action bar clicked");
+                Log.i(TAG, "test");
                 startActivity(intent);
             }
         });

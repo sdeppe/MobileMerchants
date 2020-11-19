@@ -1,6 +1,5 @@
 package com.example.mobilemerchants;
-
-
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toolbar;
+
 
 
 import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
@@ -59,7 +58,6 @@ public class UserAccountDisplay extends AppCompatActivity  {
         queryPreviousOrders();
 
         toolbar = findViewById(R.id.myToolBar);
-
         setSupportActionBar(toolbar);
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
@@ -68,7 +66,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserAccountDisplay.this, UserAccountDisplay.class);
-                Log.i(TAG, "Profile in Action bar clicked");
+                Log.i(TAG, "test");
                 startActivity(intent);
             }
         });
