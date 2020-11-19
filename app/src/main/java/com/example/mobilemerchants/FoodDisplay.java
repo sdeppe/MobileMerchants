@@ -1,6 +1,7 @@
 package com.example.mobilemerchants;
 
-import androidx.annotation.RequiresApi;
+
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,7 +13,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 
 import com.example.mobilemerchants.Adapters.Food;
@@ -40,7 +40,7 @@ public class FoodDisplay extends AppCompatActivity {
     List<Food> allOrders;
     FoodItemAdapter adapter;
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +55,7 @@ public class FoodDisplay extends AppCompatActivity {
         adapter = new FoodItemAdapter(this, allOrders);
         rvFoodDisplay.setAdapter(adapter);
         rvFoodDisplay.setLayoutManager(new LinearLayoutManager(this));
-        queryRestaurants();
+        queryFoods();
 
         toolbar = findViewById(R.id.myToolBar);
         setSupportActionBar(toolbar);
@@ -77,7 +77,7 @@ public class FoodDisplay extends AppCompatActivity {
             }
         });
     }
-    private void queryRestaurants() {
+    private void queryFoods() {
         ParseQuery<Food> query = ParseQuery.getQuery(Food.class);
         query.findInBackground(new FindCallback<Food>() {
             @Override

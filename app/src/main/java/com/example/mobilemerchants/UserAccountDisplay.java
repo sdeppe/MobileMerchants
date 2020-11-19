@@ -1,12 +1,11 @@
 package com.example.mobilemerchants;
 
-import androidx.annotation.RequiresApi;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,13 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toolbar;
 
+
 import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
 import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.FindCallback;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
@@ -28,11 +25,9 @@ import java.util.List;
 
 public class UserAccountDisplay extends AppCompatActivity  {
 
-    public static final String TAG = "RestaurantDisplay";
-   // ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
-    private Toolbar toolbar;
+    public static final String TAG = "UserAccountDisplay";
 
-    RecyclerView rvRestaurants;
+    private Toolbar toolbar;
     List<UserAccount> allOrders;
     AccountDisplayAdapter adapter;
     EditText etFirstNameUpdate;
@@ -44,7 +39,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,9 +54,9 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
         allOrders = new ArrayList<>();
         adapter = new AccountDisplayAdapter(this, allOrders);
-        rvRestaurants.setAdapter(adapter);
-        rvRestaurants.setLayoutManager(new LinearLayoutManager(this));
-        queryRestaurants();
+        rvPastOrders.setAdapter(adapter);
+        rvPastOrders.setLayoutManager(new LinearLayoutManager(this));
+        queryPreviousOrders();
 
         toolbar = findViewById(R.id.myToolBar);
 
@@ -96,7 +91,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 
 
-    private void queryRestaurants() {
+    private void  queryPreviousOrders() {
         ParseQuery<UserAccount> query = ParseQuery.getQuery(UserAccount.class);
         query.findInBackground(new FindCallback<UserAccount>() {
             @Override
