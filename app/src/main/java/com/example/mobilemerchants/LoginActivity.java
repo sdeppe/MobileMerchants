@@ -44,13 +44,6 @@ public class LoginActivity extends AppCompatActivity {
         // todo verify account in database
         // send to right screen depending on account type
 
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(LoginActivity.this, UserAccountDisplay.class);
-//                startActivity(i);
-//            }
-//        });
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,10 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                                 public void done(ParseUser user, ParseException e) {
                                     if (user != null) {
                                         // TODO: better error handling
-                                        goMainActivity();
+
                                         Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
-                                        Intent i = new Intent(LoginActivity.this, UserAccountDisplay.class);
-                                        startActivity(i);
+                                        goMainActivity();
                                     } else {
                                         ParseUser.logOut();
                                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
