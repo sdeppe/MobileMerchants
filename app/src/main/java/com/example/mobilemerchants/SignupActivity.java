@@ -1,93 +1,94 @@
 package com.example.mobilemerchants;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 public class SignupActivity extends AppCompatActivity {
 
     public static final String TAG = "SignupActivity";
-
-    TextView etRole;
-    TextView etFirstName;
-    TextView etLastName;
-    TextView etUsername;
-    TextView etPassword;
+    EditText etRole;
+    EditText etContactInfo;
+    EditText etFirstName;
+    EditText etLastName;
+    EditText etUsername;
+    EditText etPassword;
     Button btnRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
         if(ParseUser.getCurrentUser() != null){
             returnToMain();
-         }
-
+        }
         etRole = findViewById(R.id.etRole);
         etFirstName = findViewById(R.id.etFirstName);
         etLastName = findViewById(R.id.etLastName);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btnRegister = findViewById(R.id.btnRegister);
-
-
+        etContactInfo = findViewById(R.id.etContactInfo);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                 //startActivity(i);
-
-
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                createUser(username, password);
-
-
+                String email = etContactInfo.getText().toString();
+                String firstName = etFirstName.getText().toString();
+                String lastName = etLastName.getText().toString();
+                String role = etRole.getText().toString();
+                createUser(username, password, email, firstName, lastName, role);
             }
         });
     }
+    //            public void createUser(final String username, final String password, String email, String firstName, String lastName, String role) {
 
-    private void createUser(final String username, final String password) {
-        Log.i(TAG, "Attempting to login user " + username);
-        // TODO: navigate to the main activity if the user has signed in properly
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
+    public void createUser(String username, String password, String email, String firstName, String lastName, String role) {
+        ParseUser user = new ParseUser();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setEmail(email);
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
+        user.put("role", role);
 
-                    Toast.makeText(SignupActivity.this, "Issue with login!", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Issue with login", e);
-                    return;
+        // Other fields can be set just like any other ParseObject,
+        // using the "put" method, like this: user.put("attribute", "its value");
+        // If this field does not exists, it will be automatically created
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Hooray! Let them use the app now.
+                    Toast.makeText(SignupActivity.this,"Success!",Toast.LENGTH_LONG).show();
+                    returnToMain();
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+                    Log.e(TAG,"Error", e);
+                    Toast.makeText(SignupActivity.this,"Error!",Toast.LENGTH_LONG).show();
+
                 }
-                // TODO: navigate to the main activity if the user has signed in properly
-                ParseObject userInfo = new ParseObject("GameScore");
-                userInfo.put("password", password);
-                userInfo.put("username", username);
-                userInfo.saveInBackground();
-                returnToMain();
-                Toast.makeText(SignupActivity.this, "Success!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     //Return to the main screen
-        private void returnToMain(){
-            Intent i = new Intent(SignupActivity.this, LoginActivity.class);
-            startActivity(i);
-        }
+    private void returnToMain(){
+        Intent i = new Intent(SignupActivity.this, LoginActivity.class);
+        startActivity(i);
+    }
 }
