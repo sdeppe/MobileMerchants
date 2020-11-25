@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class);
+                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
                 startActivity(i);
             }
         });
