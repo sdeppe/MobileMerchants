@@ -20,9 +20,9 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RestaurantDisplay extends AppCompatActivity {
+public class AdminConfirmActivity extends AppCompatActivity {
 
-    public static final String TAG = "RestaurantDisplay";
+    public static final String TAG = "AdminConfirmActivity";
 
     private Toolbar toolbar;
     Button btnEditProfile;
@@ -33,7 +33,7 @@ public class RestaurantDisplay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_restaurant_display);
+        setContentView(R.layout.activity_admin_confirm);
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
         rvRestaurants = findViewById(R.id.rvRestaurants);
@@ -50,7 +50,7 @@ public class RestaurantDisplay extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(RestaurantDisplay.this, UserAccountDisplay.class);
+                Intent intent = new Intent(AdminConfirmActivity.this, UserAccountDisplay.class);
                 Log.i(TAG, "Profile in Action bar clicked");
                 startActivity(intent);
             }
@@ -61,7 +61,7 @@ public class RestaurantDisplay extends AppCompatActivity {
         btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(RestaurantDisplay.this, UserAccountDisplay.class);
+                Intent i = new Intent(AdminConfirmActivity.this, UserAccountDisplay.class);
                 startActivity(i);
             }
         });
@@ -78,7 +78,7 @@ public class RestaurantDisplay extends AppCompatActivity {
                 }
                 for (Restaurant restaurant : restaurants) {
                     Log.i(TAG, "Restaurant: " + restaurant.getName() + ", Description: " + restaurant.getDescription());
-                    if(restaurant.getConfirmed()){
+                    if(!restaurant.getConfirmed()){
                         allRestaurants.add(restaurant);
                     }
                 }

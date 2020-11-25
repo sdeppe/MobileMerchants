@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".VendorAddFood"></activity>
+        <activity android:name=".AdminConfirmActivity"></activity>
+        <activity android:name=".VendorAddFood" />
         <activity android:name=".VendorOrderDisplay" />
         <activity android:name=".VendorHomeScreen" />
         <activity android:name=".UserAccountDisplay" />
