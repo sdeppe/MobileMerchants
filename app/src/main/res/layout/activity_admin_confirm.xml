@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.023" />
 
     <TextView
-        android:id="@+id/tvRestaurant"
+        android:id="@+id/tvRestaurantName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Pending Resturants"
@@ -39,12 +39,12 @@
         app:layout_constraintVertical_bias="0.029" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvRestaurants"
+        android:id="@+id/rvRestaurantItems"
         android:layout_width="match_parent"
         android:layout_height="550dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvRestaurant" />
+        app:layout_constraintTop_toBottomOf="@+id/tvRestaurantName" />
 
 </LinearLayout>

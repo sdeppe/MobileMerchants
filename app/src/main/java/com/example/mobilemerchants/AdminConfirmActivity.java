@@ -36,7 +36,7 @@ public class AdminConfirmActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_confirm);
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
-        rvRestaurants = findViewById(R.id.rvRestaurants);
+        rvRestaurants = findViewById(R.id.rvRestaurantItems);
 
         allRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(this, allRestaurants);

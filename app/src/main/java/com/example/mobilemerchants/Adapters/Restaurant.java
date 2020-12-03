@@ -11,7 +11,8 @@ public class Restaurant extends ParseObject {
 
     public static final String KEY_NAME = "RestaurantName";
     public static final String KEY_DESCRIPTION = "RestaurantDescription";
-     public static final String KEY_CONFIRMED = "Confirmed";
+    public static final String KEY_CONFIRMED = "Confirmed";
+    public static final String KEY_OWNER = "";
 
     public Restaurant() {
         super();
@@ -35,5 +36,9 @@ public class Restaurant extends ParseObject {
 
     public void setRestaurantDescription(String description) {
         put(KEY_DESCRIPTION, description);
+    }
+
+    public ParseObject getOwner() {
+        return getParseObject(KEY_OWNER);
     }
 }
