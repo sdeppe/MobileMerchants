@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -56,7 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class);
+                Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class); // should start at Vendor home screen for testing its now set to vendor order display .
                 startActivity(i);
             }
         });
@@ -104,7 +106,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goMainActivity(){
-        Intent i = new Intent(this, FoodDisplay.class);
+
+        Intent i = new Intent(this, UserAccountDisplay.class);
         startActivity(i);
         finish();
     }

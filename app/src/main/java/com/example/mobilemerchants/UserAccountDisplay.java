@@ -1,4 +1,5 @@
 package com.example.mobilemerchants;
+
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -48,7 +49,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
         etUpdateLastName = findViewById(R.id.etUpdateLastName);
         etUpdateUsername = findViewById(R.id.etUpdateUsername);
         etUpdatePassword = findViewById(R.id.etUpdatePassword);
-        rvPastOrders = findViewById(R.id.rvPastOrders);
+        rvPastOrders = findViewById(R.id.rvCurrentOrders);
         btnUpdate = findViewById(R.id.btnUpdate);
 
         allOrders = new ArrayList<>();
@@ -59,6 +60,8 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
         toolbar = findViewById(R.id.myToolBar);
         setSupportActionBar(toolbar);
+
+
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
 //        query.whereEqualTo("user", "testUser");

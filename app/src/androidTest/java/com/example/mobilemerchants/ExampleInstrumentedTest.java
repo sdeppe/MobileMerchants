@@ -25,6 +25,5 @@ public class ExampleInstrumentedTest {
     }
 
     //make tests
-    @Test
 
 }

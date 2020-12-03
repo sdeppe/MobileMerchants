@@ -44,9 +44,10 @@ public class FoodDisplay extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_food_display);
 
-        tvFoodName = findViewById(R.id.tvFoodName);
+        tvFoodName = findViewById(R.id.tvFoodOrderName);
         rvFoodDisplay = findViewById(R.id.rvFoodDisplay);
         tvFoodPrice = findViewById(R.id.tvFoodPrice);
         btnGoBack = findViewById(R.id.btnGoBack);

@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mobilemerchants.R;
-import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -50,7 +49,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
 
         public ViewHolder (@NonNull View itemView) {
             super(itemView);
-            tvFoodName = itemView.findViewById(R.id.tvFoodName);
+            tvFoodName = itemView.findViewById(R.id.tvFoodOrderName);
             tvFoodDescription = itemView.findViewById(R.id.tvFoodDescription);
             tvFoodPrice = itemView.findViewById(R.id.tvFoodPrice);
 
