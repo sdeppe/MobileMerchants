@@ -44,12 +44,15 @@ public class VendorAddFood extends AppCompatActivity {
 
                 String FoodName = etFoodName.getText().toString();
                 String FoodDescription = etDescription.getText().toString();
-                Number FoodPrice = etPrice.getText().length();
-                ParseObject food = new ParseObject("Food");
-//                ParseQuery<ParseObject> food = ParseQuery.getQuery("RestaurantShop");
+                String FoodPrice = etPrice.getText().toString();
+                Double tempPrice = Double.valueOf(FoodPrice);
+                Number price = (Number)tempPrice;
+
+//                ParseObject food = new ParseObject("Food");
+                ParseQuery<ParseObject> Food = ParseQuery.getQuery("RestaurantShop");
                 //"RestaurantShop": { "__type": "Pointer", "className": "Restaurants", "objectId": "<THE_REFERENCED_OBJECT_ID>"
 
-                createObject(FoodName, FoodDescription, FoodPrice);
+                createObject(FoodName, FoodDescription, price);
 
             }
         });
@@ -74,7 +77,7 @@ public class VendorAddFood extends AppCompatActivity {
                 // Here you can handle errors, if thrown. Otherwise, "e" should be null
                 if (e == null) {
                     System.out.println("Success");
-                    readObject();
+//                    readObject();
                 } else {
                     // something went wrong
                     System.out.println("Error");
@@ -84,80 +87,81 @@ public class VendorAddFood extends AppCompatActivity {
         });
     }
 
-    public void readObject() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Food");
+//    public void readObject() {
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Food");
 
         // The query will search for a ParseObject, given its objectId.
         // When the query finishes running, it will invoke the GetCallback
         // with either the object, or the exception thrown
-        query.getInBackground("<PARSE_OBJECT_ID>", new GetCallback<ParseObject>() {
-
-
-            public void done(ParseObject result, ParseException e) {
-                if (e == null) {
-                    System.out.println("Success");
-                    System.out.println(result);
-                    updateObject();
-                } else {
-                    // something went wrong
-                    System.out.println("Error");
-
-                }
-            }
-        });
-    }
-
-    public void updateObject() {
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Food");
-
-        // Retrieve the object by id
-        query.getInBackground("<PARSE_OBJECT_ID>", new GetCallback<ParseObject>() {
-
-
-
-            public void done(ParseObject entity, ParseException e) {
-                if (e == null) {
-                    // Update the fields we want to
-                    entity.put("FoodName", "A string");
-                    entity.put("FoodDescription", "A string");
-                    entity.put("FoodPrice", 1);
-                    entity.put("RestaurantShop", new ParseObject("Restaurants"));
-
-                    // All other fields will remain the same
-                    entity.saveInBackground();
-                }
-            }
-        });
-    }
-
-    public void deleteObject() {
-        // TODO: modify me!
-        final boolean deleteAttributesOnly = true;
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Food");
-
-        // Retrieve the object by id
-        query.getInBackground("<PARSE_OBJECT_ID>", new GetCallback<ParseObject>() {
-
-
-            public void done(ParseObject entity, ParseException e) {
-                if (e == null) {
-                    if (deleteAttributesOnly) {
-                        // If you want to undefine a specific field, do this:
-                        entity.remove("FoodName");
-                        entity.remove("FoodDescription");
-                        entity.remove("FoodPrice");
-                        entity.remove("RestaurantShop");
-
-                        // Then save the changes
-                        entity.saveInBackground();
-                    } else {
-                        // Otherwise, you can delete the entire ParseObject from the database
-                        entity.deleteInBackground();
-                    }
-                }
-            }
-        });
-    }
+//        query.getInBackground("");
+//        query.getInBackground("<PARSE_OBJECT_ID>", new GetCallback<ParseObject>() {
+//
+//
+//            public void done(ParseObject result, ParseException e) {
+//                if (e == null) {
+//                    System.out.println("Success");
+//                    System.out.println(result);
+//                    updateObject();
+//                } else {
+//                    // something went wrong
+//                    System.out.println("Error");
+//
+//                }
+//            }
+//        });
+//    }
+//
+//    public void updateObject() {
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Food");
+//
+//        // Retrieve the object by id
+//        query.getInBackground("<PARSE_OBJECT_ID>", new GetCallback<ParseObject>() {
+//
+//
+//
+//            public void done(ParseObject entity, ParseException e) {
+//                if (e == null) {
+//                    // Update the fields we want to
+//                    entity.put("FoodName", "A string");
+//                    entity.put("FoodDescription", "A string");
+//                    entity.put("FoodPrice", 1);
+//                    entity.put("RestaurantShop", new ParseObject("Restaurants"));
+//
+//                    // All other fields will remain the same
+//                    entity.saveInBackground();
+//                }
+//            }
+//        });
+//    }
+//
+//    public void deleteObject() {
+//        // TODO: modify me!
+//        final boolean deleteAttributesOnly = true;
+//
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("Food");
+//
+//        // Retrieve the object by id
+//        query.getInBackground("<PARSE_OBJECT_ID>", new GetCallback<ParseObject>() {
+//
+//
+//            public void done(ParseObject entity, ParseException e) {
+//                if (e == null) {
+//                    if (deleteAttributesOnly) {
+//                        // If you want to undefine a specific field, do this:
+//                        entity.remove("FoodName");
+//                        entity.remove("FoodDescription");
+//                        entity.remove("FoodPrice");
+//                        entity.remove("RestaurantShop");
+//
+//                        // Then save the changes
+//                        entity.saveInBackground();
+//                    } else {
+//                        // Otherwise, you can delete the entire ParseObject from the database
+//                        entity.deleteInBackground();
+//                    }
+//                }
+//            }
+//        });
+//    }
 
 }
