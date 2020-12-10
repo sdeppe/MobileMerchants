@@ -1,7 +1,6 @@
 package com.example.mobilemerchants;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -12,64 +11,78 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mobilemerchants.Adapters.Restaurant;
-import com.example.mobilemerchants.Adapters.RestaurantsAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class VendorHomeScreen extends AppCompatActivity {
 
     public static final String TAG = "VendorHomeScreen";
 
-    TextView tvVendorName;
-    RecyclerView rvVendorFoodDisplay;
-    Button btnAddFood;
-    Button btnOrders;
-    List<Restaurant> vendorRestaurants;
-    RestaurantsAdapter adapter;
+    private TextView tvVendorUsername;
+    private TextView tvVendorRestaurantName;
+    private TextView tvVendorRestaurantDescription;
+    private TextView tvConfirmed;
+    private RecyclerView rvVendorPendingDisplay;
+    private Button btnCreateRestaurant;
+    private Button btnVendorLogout;
+    Restaurant currentRestaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_home_screen);
 
-        tvVendorName = findViewById(R.id.tvVendorName);
-        rvVendorFoodDisplay = findViewById(R.id.rvVendorFoodDisplay);
-        btnAddFood = findViewById(R.id.btnAddRestaurant);
-        btnOrders = findViewById(R.id.btnVendorLogout);
+        tvVendorUsername = findViewById(R.id.tvVendorUsername);
+        tvVendorRestaurantName = findViewById(R.id.tvVendorRestaurantName);
+        tvVendorRestaurantDescription = findViewById(R.id.tvVendorRestaurantDescription);
+        tvConfirmed = findViewById(R.id.tvConfirmed);
+        rvVendorPendingDisplay = findViewById(R.id.rvVendorPendingDisplay);
+        btnCreateRestaurant = findViewById(R.id.btnCreateRestaurant);
+        btnVendorLogout = findViewById(R.id.btnVendorLogout);
 
-        // todo set tvVendorName
-        tvVendorName.setText(ParseUser.getCurrentUser().getUsername());
-        // todo set RecycleViewer
-        // todo set click listener/redirect
-        vendorRestaurants = new ArrayList<>();
-        adapter = new RestaurantsAdapter(this, vendorRestaurants);
-        rvVendorFoodDisplay.setAdapter(adapter);
-        rvVendorFoodDisplay.setLayoutManager(new LinearLayoutManager(this));
-        queryRestaurants();
+        tvVendorUsername.setText(ParseUser.getCurrentUser().getUsername());
 
-        btnAddFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent(VendorHomeScreen.this, VendorAddFood.class);
-                startActivity(i);
-                // todo change to start for result
+        if (currentRestaurant != null) {
+            tvVendorRestaurantName.setText(currentRestaurant.getName());
+            tvVendorRestaurantDescription.setText(currentRestaurant.getDescription());
+            if (currentRestaurant.getConfirmed()) {
+                tvConfirmed.setText("Confirmed: True");
+            } else {
+                tvConfirmed.setText("Confirmed: Pending");
             }
-        });
-
-        btnOrders.setOnClickListener(new View.OnClickListener() {
+            btnCreateRestaurant.setText("Manage Items");
+            btnCreateRestaurant.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(VendorHomeScreen.this, VendorRestaurantDisplay.class);
+                    startActivity(i);
+                }
+            });
+        }
+        else {
+            btnCreateRestaurant.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent i = new Intent(VendorHomeScreen.this, VendorRestaurantApply.class);
+                    startActivity(i);
+                }
+            });
+        }
+        btnVendorLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(VendorHomeScreen.this, VendorOrderDisplay.class);
+                ParseUser.logOut();
+                Intent i = new Intent(VendorHomeScreen.this, LoginActivity.class);
                 startActivity(i);
             }
         });
     }
 
+    // todo fix query
     private void queryRestaurants() {
         ParseQuery<Restaurant> query = ParseQuery.getQuery(Restaurant.class);
         query.findInBackground(new FindCallback<Restaurant>() {
@@ -80,13 +93,11 @@ public class VendorHomeScreen extends AppCompatActivity {
                     return;
                 }
                 for (Restaurant restaurant : restaurants) {
-                    Log.i(TAG, "Restaurant: " + restaurant.getName() + ", Description: " + restaurant.getDescription());
-
                     if(restaurant.getOwner() == ParseUser.getCurrentUser() && restaurant.getConfirmed()){
-                        vendorRestaurants.add(restaurant);
+                        currentRestaurant = restaurant;
                     }
                 }
-                adapter.notifyDataSetChanged();
+                //adapter.notifyDataSetChanged();
             }
         });
     }
