@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/etUpdateUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="username"
+        tools:text="username" />
+
+    <TextView
+        android:id="@+id/etUpdateLastName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="lastName"
+        tools:text="lastName" />
+    <TextView
+        android:id="@+id/etFirstNameUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="firstName"
+        tools:text="firstName" />
+    <TextView
+        android:id="@+id/etUpdatePassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="password"
+        tools:text="password" />
+
+</LinearLayout>

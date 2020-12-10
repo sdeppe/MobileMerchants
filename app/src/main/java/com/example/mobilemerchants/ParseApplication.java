@@ -1,6 +1,8 @@
 package com.example.mobilemerchants;
 
+import com.example.mobilemerchants.Adapters.Food;
 import com.example.mobilemerchants.Adapters.Restaurant;
+import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.Parse;
 import android.app.Application;
 import com.parse.ParseObject;
@@ -12,7 +14,8 @@ public class ParseApplication extends Application{
         super.onCreate();
 
         ParseObject.registerSubclass(Restaurant.class);
-
+        ParseObject.registerSubclass(Food.class);
+        ParseObject.registerSubclass(UserAccount.class);
 
         Parse.initialize(new Parse.Configuration.Builder(this)
                 .applicationId("z3ROWYCFJBRCZMbcyd5L8WqBxcOJIofRuKqCuHJO")
