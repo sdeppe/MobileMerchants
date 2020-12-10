@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class); // should start at Vendor home screen for testing its now set to vendor order display .
 
-                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
+             //   Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
 
                 startActivity(i);
             }
