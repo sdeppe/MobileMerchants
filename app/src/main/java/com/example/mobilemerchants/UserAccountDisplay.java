@@ -19,6 +19,7 @@ import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
 import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
