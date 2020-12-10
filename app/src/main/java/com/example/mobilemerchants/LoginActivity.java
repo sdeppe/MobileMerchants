@@ -88,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         goMainActivity();
 
+
 //                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
 //                                        startActivity(i);
 
@@ -108,6 +109,12 @@ public class LoginActivity extends AppCompatActivity {
     private void goMainActivity(){
 
         Intent i = new Intent(this, UserAccountDisplay.class);
+        startActivity(i);
+        finish();
+    }
+    private void goAdminActivity(){
+
+        Intent i = new Intent(this, FoodDisplay.class);
         startActivity(i);
         finish();
     }

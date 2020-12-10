@@ -65,14 +65,8 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
 //        query.whereEqualTo("user", "testUser");
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(UserAccountDisplay.this, UserAccountDisplay.class);
-                Log.i(TAG, "test");
-                startActivity(intent);
-            }
-        });
+      //  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
 
 
 
