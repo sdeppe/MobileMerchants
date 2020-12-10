@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 
 
@@ -19,9 +20,11 @@ import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
+
 
 public class UserAccountDisplay extends AppCompatActivity  {
 
@@ -30,12 +33,18 @@ public class UserAccountDisplay extends AppCompatActivity  {
     private Toolbar toolbar;
     List<UserAccount> allOrders;
     AccountDisplayAdapter adapter;
+
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
+
+   
+
     EditText etFirstNameUpdate;
     EditText etUpdateLastName;
     EditText etUpdateUsername;
     EditText etUpdatePassword;
     RecyclerView rvPastOrders;
     Button btnUpdate;
+    Button btnLogout;
 
 
 
@@ -51,6 +60,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
         etUpdatePassword = findViewById(R.id.etUpdatePassword);
         rvPastOrders = findViewById(R.id.rvCurrentOrders);
         btnUpdate = findViewById(R.id.btnUpdate);
+        btnLogout = findViewById(R.id.btnLogout);
 
         allOrders = new ArrayList<>();
         adapter = new AccountDisplayAdapter(this, allOrders);
@@ -80,6 +90,18 @@ public class UserAccountDisplay extends AppCompatActivity  {
             public void onClick(View view) {
                 Intent i = new Intent(UserAccountDisplay.this, RestaurantDisplay.class);
                 startActivity(i);
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "Logout button clicked.");
+                ParseUser.logOut();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                Intent i = new Intent(UserAccountDisplay.this, LoginActivity.class);
+                startActivity(i);
+                Toast.makeText(UserAccountDisplay.this, "Signed out", Toast.LENGTH_SHORT).show();
             }
         });
     }

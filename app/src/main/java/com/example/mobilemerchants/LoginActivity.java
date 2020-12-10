@@ -58,7 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class); // should start at Vendor home screen for testing its now set to vendor order display .
+
+                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
+
                 startActivity(i);
             }
         });

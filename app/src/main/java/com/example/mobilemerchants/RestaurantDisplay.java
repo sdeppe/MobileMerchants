@@ -79,8 +79,10 @@ public class RestaurantDisplay extends AppCompatActivity {
                 }
                 for (Restaurant restaurant : restaurants) {
                     Log.i(TAG, "Restaurant: " + restaurant.getName() + ", Description: " + restaurant.getDescription());
+                    if(restaurant.getConfirmed()){
+                        allRestaurants.add(restaurant);
+                    }
                 }
-                allRestaurants.addAll(restaurants);
                 adapter.notifyDataSetChanged();
             }
         });
