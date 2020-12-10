@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -44,13 +46,6 @@ public class LoginActivity extends AppCompatActivity {
         // todo verify account in database
         // send to right screen depending on account type
 
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent i = new Intent(LoginActivity.this, UserAccountDisplay.class);
-//                startActivity(i);
-//            }
-//        });
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +58,11 @@ public class LoginActivity extends AppCompatActivity {
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
+
+                Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class); // should start at Vendor home screen for testing its now set to vendor order display .
+
+             //   Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
+
                 startActivity(i);
             }
         });
@@ -88,10 +87,15 @@ public class LoginActivity extends AppCompatActivity {
                                 public void done(ParseUser user, ParseException e) {
                                     if (user != null) {
                                         // TODO: better error handling
-                                        goMainActivity();
+
                                         Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
-                                        Intent i = new Intent(LoginActivity.this, RestaurantDisplay.class);
-                                        startActivity(i);
+
+                                        goMainActivity();
+
+
+//                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
+//                                        startActivity(i);
+
                                     } else {
                                         ParseUser.logOut();
                                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -107,7 +111,14 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goMainActivity(){
-        Intent i = new Intent(this, RestaurantDisplay.class);
+
+        Intent i = new Intent(this, UserAccountDisplay.class);
+        startActivity(i);
+        finish();
+    }
+    private void goAdminActivity(){
+
+        Intent i = new Intent(this, FoodDisplay.class);
         startActivity(i);
         finish();
     }

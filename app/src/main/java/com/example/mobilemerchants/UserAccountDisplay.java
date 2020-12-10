@@ -1,6 +1,8 @@
 package com.example.mobilemerchants;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -11,20 +13,32 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+
+import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
+import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.FindCallback;
-import com.parse.Parse;
-import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class UserAccountDisplay extends AppCompatActivity {
-    ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
+
+public class UserAccountDisplay extends AppCompatActivity  {
 
     public static final String TAG = "UserAccountDisplay";
+
+    private Toolbar toolbar;
+    List<UserAccount> allOrders;
+    AccountDisplayAdapter adapter;
+
+    ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
+
+   
+
     EditText etFirstNameUpdate;
     EditText etUpdateLastName;
     EditText etUpdateUsername;
@@ -32,6 +46,7 @@ public class UserAccountDisplay extends AppCompatActivity {
     RecyclerView rvPastOrders;
     Button btnUpdate;
     Button btnLogout;
+
 
 
 
@@ -44,12 +59,25 @@ public class UserAccountDisplay extends AppCompatActivity {
         etUpdateLastName = findViewById(R.id.etUpdateLastName);
         etUpdateUsername = findViewById(R.id.etUpdateUsername);
         etUpdatePassword = findViewById(R.id.etUpdatePassword);
-        rvPastOrders = findViewById(R.id.rvPastOrders);
+        rvPastOrders = findViewById(R.id.rvCurrentOrders);
         btnUpdate = findViewById(R.id.btnUpdate);
         btnLogout = findViewById(R.id.btnLogout);
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
-        query.whereEqualTo("user", "testUser");
+        allOrders = new ArrayList<>();
+        adapter = new AccountDisplayAdapter(this, allOrders);
+        rvPastOrders.setAdapter(adapter);
+        rvPastOrders.setLayoutManager(new LinearLayoutManager(this));
+        queryPreviousOrders();
+
+        toolbar = findViewById(R.id.myToolBar);
+        setSupportActionBar(toolbar);
+
+
+
+//        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
+//        query.whereEqualTo("user", "testUser");
+      //  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
 
 
 
@@ -75,6 +103,26 @@ public class UserAccountDisplay extends AppCompatActivity {
                 Intent i = new Intent(UserAccountDisplay.this, LoginActivity.class);
                 startActivity(i);
                 Toast.makeText(UserAccountDisplay.this, "Signed out", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    private void  queryPreviousOrders() {
+        ParseQuery<UserAccount> query = ParseQuery.getQuery(UserAccount.class);
+        query.findInBackground(new FindCallback<UserAccount>() {
+            @Override
+            public void done(List<UserAccount> orders, ParseException e) {
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting post", e);
+                    return;
+                }
+                for (UserAccount user : orders) {
+                    Log.i(TAG, "User: " + user.getUsername() + ", First Name: " + user.getUserFirstName() + ", Last Name: " + user.getUserLastName() + ", Password:" + user.getPassword());
+                }
+                allOrders.addAll(orders);
+                adapter.notifyDataSetChanged();
             }
         });
     }

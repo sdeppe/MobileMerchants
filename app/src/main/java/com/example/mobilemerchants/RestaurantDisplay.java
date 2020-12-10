@@ -1,4 +1,4 @@
-package com.example.mobilemerchants;
+ package com.example.mobilemerchants;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +27,7 @@ public class RestaurantDisplay extends AppCompatActivity {
     private Toolbar toolbar;
     Button btnEditProfile;
     RecyclerView rvRestaurants;
+
     List<Restaurant> allRestaurants;
     RestaurantsAdapter adapter;
 
