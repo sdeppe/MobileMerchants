@@ -98,6 +98,7 @@ public class VendorHomeScreen extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(VendorHomeScreen.this, VendorRestaurantDisplay.class);
+                i.putExtra("restaurant", "test");
                 startActivity(i);
             }
         });
@@ -154,7 +155,6 @@ public class VendorHomeScreen extends AppCompatActivity {
 //                        previousOrders.add(previousOrder);
 //                    }
                     Log.i(TAG, "total: " + previousOrder.getTotal());
-
                 }
                 adapter.notifyDataSetChanged();
             }

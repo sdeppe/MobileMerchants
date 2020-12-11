@@ -58,7 +58,7 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
         public void bind(Food food){
             tvFoodName.setText(food.getFoodName());
             tvFoodDescription.setText(food.getFoodDescription());
-            tvFoodPrice.setText(food.getFoodPrice());
+            tvFoodPrice.setText(String.valueOf(food.getFoodPrice()));
 
         }
     }
