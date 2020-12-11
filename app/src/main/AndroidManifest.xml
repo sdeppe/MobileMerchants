@@ -21,6 +21,7 @@
         <activity android:name=".UserAccountDisplay" />
         <activity android:name=".FoodDisplay" />
         <activity android:name=".RestaurantDisplay" />
+        <activity android:name=".VendorRestaurantDisplay" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
