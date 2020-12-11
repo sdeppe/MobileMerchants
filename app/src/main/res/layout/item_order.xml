@@ -14,7 +14,7 @@
             android:text="userName" />
 
         <TextView
-            android:id="@+id/tvFoodOrderName"
+            android:id="@+id/tvUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Food Name" />

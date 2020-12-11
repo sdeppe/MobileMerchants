@@ -1,6 +1,7 @@
 package com.example.mobilemerchants;
 
 import com.example.mobilemerchants.Adapters.Food;
+import com.example.mobilemerchants.Adapters.PreviousOrders;
 import com.example.mobilemerchants.Adapters.Restaurant;
 import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.Parse;
@@ -13,6 +14,7 @@ public class ParseApplication extends Application{
     public void onCreate() {
         super.onCreate();
 
+        ParseObject.registerSubclass(PreviousOrders.class);
         ParseObject.registerSubclass(Restaurant.class);
         ParseObject.registerSubclass(Food.class);
         ParseObject.registerSubclass(UserAccount.class);

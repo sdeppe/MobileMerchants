@@ -12,7 +12,7 @@ public class Restaurant extends ParseObject {
     public static final String KEY_NAME = "RestaurantName";
     public static final String KEY_DESCRIPTION = "RestaurantDescription";
     public static final String KEY_CONFIRMED = "Confirmed";
-    public static final String KEY_OWNER = "";
+    public static final String KEY_OWNER = "RestaurantOwner";
 
     public Restaurant() {
         super();
