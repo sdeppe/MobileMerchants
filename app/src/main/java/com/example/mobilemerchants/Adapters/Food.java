@@ -12,7 +12,7 @@ public class Food extends ParseObject {
     public static final String KEY_NAME = "FoodName";
     public static final String KEY_DESCRIPTION = "FoodDescription";
     public static final String KEY_PRICE = "FoodPrice";
-    // public static final String KEY_CONFIRMED = "Confirmed";
+     public static final String KEY_VENDOR = "RestaurantShop";
 
     public Food() {
         super();
@@ -38,7 +38,11 @@ public class Food extends ParseObject {
         put(KEY_PRICE, price);
     }
 
-    public String getFoodPrice(){
-        return getString(KEY_PRICE);
+    public double getFoodPrice(){
+        return getDouble(KEY_PRICE);
+    }
+
+    public ParseObject getVendor() {
+        return getParseObject(KEY_VENDOR);
     }
 }

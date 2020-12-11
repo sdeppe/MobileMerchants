@@ -50,7 +50,7 @@ public class VendorOrderDisplayAdapter extends RecyclerView.Adapter<VendorOrderD
 
 
             tvUserName = itemView.findViewById(R.id.tvUserName);
-            tvFoodName = itemView.findViewById(R.id.tvFoodOrderName);
+            tvFoodName = itemView.findViewById(R.id.tvUser);
             tvQuant = itemView.findViewById(R.id.tvQuant);
         }
 
