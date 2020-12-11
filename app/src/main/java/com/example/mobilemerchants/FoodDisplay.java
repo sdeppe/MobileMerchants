@@ -47,9 +47,9 @@ public class FoodDisplay extends AppCompatActivity {
 
         setContentView(R.layout.activity_food_display);
 
-        tvFoodName = findViewById(R.id.tvFoodOrderName);
+        tvFoodName = findViewById(R.id.tvUser);
         rvFoodDisplay = findViewById(R.id.rvFoodDisplay);
-        tvFoodPrice = findViewById(R.id.tvFoodPrice);
+        tvFoodPrice = findViewById(R.id.tvCost);
         btnGoBack = findViewById(R.id.btnGoBack);
 
         allOrders = new ArrayList<>();

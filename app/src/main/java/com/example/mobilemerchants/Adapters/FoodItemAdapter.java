@@ -49,9 +49,9 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
 
         public ViewHolder (@NonNull View itemView) {
             super(itemView);
-            tvFoodName = itemView.findViewById(R.id.tvFoodOrderName);
-            tvFoodDescription = itemView.findViewById(R.id.tvFoodDescription);
-            tvFoodPrice = itemView.findViewById(R.id.tvFoodPrice);
+            tvFoodName = itemView.findViewById(R.id.tvUser);
+            tvFoodDescription = itemView.findViewById(R.id.tvItem);
+            tvFoodPrice = itemView.findViewById(R.id.tvCost);
 
         }
 

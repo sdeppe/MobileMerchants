@@ -42,7 +42,7 @@ public class AdminConfirmActivity extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Restaurants");
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
-        rvRestaurants = findViewById(R.id.rvRestaurants);
+        rvRestaurants = findViewById(R.id.rvRestaurantItems);
 
         RestaurantsAdapter.OnClickListener onClickListener = new RestaurantsAdapter.OnClickListener() {
             @Override

@@ -37,7 +37,7 @@ public class RestaurantDisplay extends AppCompatActivity {
         setContentView(R.layout.activity_restaurant_display);
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
-        rvRestaurants = findViewById(R.id.rvRestaurants);
+        rvRestaurants = findViewById(R.id.rvRestaurantItems);
 
         allRestaurants = new ArrayList<>();
         adapter = new RestaurantsAdapter(this, allRestaurants);

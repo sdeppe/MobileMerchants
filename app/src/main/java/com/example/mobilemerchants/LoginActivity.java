@@ -31,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_login_activity);
-
+//        ParseUser.logOut();
         if (ParseUser.getCurrentUser() != null) {
             goMainActivity();
         }
@@ -112,7 +112,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void goMainActivity(){
 
-        Intent i = new Intent(this, UserAccountDisplay.class);
+        Intent i = new Intent(this, VendorHomeScreen.class);
         startActivity(i);
         finish();
     }
