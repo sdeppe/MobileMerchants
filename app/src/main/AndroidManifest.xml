@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mobilemerchants">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ParseApplication"
         android:allowBackup="true"
@@ -11,11 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".VendorEditFood"></activity>
-        <activity android:name=".VendorRestaurantApply" />
-        <activity android:name=".VendorAddItem" />
-        <activity android:name=".VendorRestaurantDisplay" />
-        <activity android:name=".AdminConfirmActivity" />
+        <activity android:name=".AdminConfirmActivity"></activity>
         <activity android:name=".VendorAddFood" />
         <activity android:name=".VendorOrderDisplay" />
         <activity android:name=".VendorHomeScreen" />
@@ -31,8 +30,5 @@
             </intent-filter>
         </activity>
     </application>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
