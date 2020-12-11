@@ -33,7 +33,7 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
     private Button btnVendorBack;
     private Button btnVendorAddItem;
 
-    protected List<Food> foods;
+    protected List<Food> allFood;
     FoodItemAdapter adapter;
 
     @Override
@@ -41,13 +41,15 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vendor_restaurant_display);
 
+        final String restaurantId = getIntent().getStringExtra("restaurant");
+
         tvRestaurantName = findViewById(R.id.tvRestaurantName);
         rvRestaurantItems = findViewById(R.id.rvRestaurantItems);
         btnVendorBack = findViewById(R.id.btnVendorBack);
         btnVendorAddItem = findViewById(R.id.btnVendorAddItem);
 
-        foods = new ArrayList<>();
-        adapter = new FoodItemAdapter(this, foods);
+        allFood = new ArrayList<>();
+        adapter = new FoodItemAdapter(this, allFood);
         rvRestaurantItems.setAdapter(adapter);
         rvRestaurantItems.setLayoutManager(new LinearLayoutManager(this));
         queryFood();
@@ -60,11 +62,11 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
             }
         });
 
-        // todo fix with bundle
         btnVendorAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(VendorRestaurantDisplay.this, VendorAddFood.class);
+                i.putExtra("restaurant", restaurantId);
                 startActivity(i);
             }
         });
@@ -80,8 +82,10 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
                     return;
                 }
                 for (Food food : foods) {
-                    Log.i(TAG, food.getFoodName() + " -> " + food.getFoodDescription());
-                    foods.add(food);
+                    if (food.getVendor().getObjectId().equals("vQPJ2pwAer")) {
+                        Log.i(TAG, food.getFoodName() + " -> " + food.getFoodDescription());
+                        allFood.add(food);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
