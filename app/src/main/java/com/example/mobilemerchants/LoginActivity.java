@@ -64,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
              //   Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
 
                 startActivity(i);
-            }
+          }
         });
 
 
@@ -78,8 +78,8 @@ public class LoginActivity extends AppCompatActivity {
                     etUsername.setError("User name is required!");
                 } else if (TextUtils.isEmpty(etPassword.getText())) {
                     etPassword.setError("Password is required");
-                } else {
-                    ParseUser.logInInBackground(etUsername.getText().toString(),
+            } else {
+                   ParseUser.logInInBackground(etUsername.getText().toString(),
                             etPassword.getText().toString(),
                             new LogInCallback() {
 
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
 
-                                        goMainActivity();
+                                        goAdminActivity();
 
 
 //                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
@@ -118,11 +118,20 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void goAdminActivity(){
 
-        Intent i = new Intent(this, FoodDisplay.class);
+        Intent i = new Intent(this, VendorOrderDisplay.class);
         startActivity(i);
         finish();
     }
 }
 
 
+10
+0
 
+
+
+
+
+
+
+-+
