@@ -24,11 +24,6 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
     private List<PreviousOrders> previousOrders;
     OnClickListener clickListener;
 
-    public PreviousOrdersAdapter(Context context, List<PreviousOrders> previousOrders) {
-        this.context = context;
-        this.previousOrders = previousOrders;
-    }
-
     public PreviousOrdersAdapter(Context context, List<PreviousOrders> previousOrders, OnClickListener clickListener) {
         this.context = context;
         this.previousOrders = previousOrders;

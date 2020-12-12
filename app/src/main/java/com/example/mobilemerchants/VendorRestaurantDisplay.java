@@ -82,6 +82,7 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
                     return;
                 }
                 for (Food food : foods) {
+                    // todo fix with restaurant id
                     if (food.getVendor().getObjectId().equals("vQPJ2pwAer")) {
                         Log.i(TAG, food.getFoodName() + " -> " + food.getFoodDescription());
                         allFood.add(food);

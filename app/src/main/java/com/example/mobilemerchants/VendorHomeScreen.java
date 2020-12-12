@@ -1,16 +1,20 @@
 package com.example.mobilemerchants;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mobilemerchants.Adapters.Food;
 import com.example.mobilemerchants.Adapters.PreviousOrders;
 import com.example.mobilemerchants.Adapters.PreviousOrdersAdapter;
 import com.example.mobilemerchants.Adapters.Restaurant;
@@ -36,7 +40,7 @@ public class VendorHomeScreen extends AppCompatActivity {
     private Button btnVendorLogout;
     Restaurant currentRestaurant;
 
-    protected List<PreviousOrders> previousOrders;
+    protected List<PreviousOrders> allPreviousOrders;
     PreviousOrdersAdapter adapter;
 
     @Override
@@ -52,10 +56,19 @@ public class VendorHomeScreen extends AppCompatActivity {
         btnCreateRestaurant = findViewById(R.id.btnCreateRestaurant);
         btnVendorLogout = findViewById(R.id.btnVendorLogout);
 
+        PreviousOrdersAdapter.OnClickListener onClickListener = new PreviousOrdersAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                PreviousOrders previousOrders = allPreviousOrders.get(position);
+                Log.d(TAG, previousOrders.getUser().getObjectId() + previousOrders.getRestaurant().getObjectId());
+                alertMaker(previousOrders);
+            }
+        };
+
         tvVendorUsername.setText(ParseUser.getCurrentUser().getUsername());
 
-        previousOrders = new ArrayList<>();
-        adapter = new PreviousOrdersAdapter(this, previousOrders);
+        allPreviousOrders = new ArrayList<>();
+        adapter = new PreviousOrdersAdapter(this, allPreviousOrders, onClickListener);
         rvVendorPendingDisplay.setAdapter(adapter);
         rvVendorPendingDisplay.setLayoutManager(new LinearLayoutManager(this));
         queryRestaurants();
@@ -125,7 +138,7 @@ public class VendorHomeScreen extends AppCompatActivity {
                     return;
                 }
                 for (Restaurant restaurant : restaurants) {
-                    Log.i(TAG, restaurant.getOwner().getObjectId() + " -> " + ParseUser.getCurrentUser().getObjectId());
+                    // Log.i(TAG, restaurant.getOwner().get("username") + " -> " + ParseUser.getCurrentUser().getObjectId());
                     if(restaurant.getOwner().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
                         currentRestaurant = restaurant;
                         Log.i(TAG, "NAME -> " + restaurant.getName());
@@ -149,15 +162,61 @@ public class VendorHomeScreen extends AppCompatActivity {
                 }
                 for (PreviousOrders previousOrder : orders) {
                     Log.i(TAG, previousOrder.getUser().getObjectId() + " -> " + previousOrder.getOrder().getObjectId());
-                    previousOrders.add(previousOrder);
+                    if (!previousOrder.getApproved()) {
+                        allPreviousOrders.add(previousOrder);
+                        Log.i(TAG, "ordered item: " + previousOrder.getOrder().getObjectId());
+                    }
                     // todo fix
 //                    if(previousOrder.getRestaurant().getObjectId().equals(currentRestaurant.getObjectId())){
 //                        previousOrders.add(previousOrder);
 //                    }
-                    Log.i(TAG, "total: " + previousOrder.getTotal());
                 }
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void alertMaker(final PreviousOrders previousOrders) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(VendorHomeScreen.this);
+
+        alertBuilder.setMessage("Would you like to confirm this order? ");
+
+        alertBuilder.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            previousOrders.setConfirmed(true);
+                            previousOrders.saveInBackground();
+                        }
+                        catch(Exception e){
+                            e.printStackTrace();
+                        }
+                        adapter.notifyDataSetChanged();
+                        Log.i(TAG, " You selected 'Yes' to confirm the order: " + previousOrders.getOrder().getObjectId());
+                        Toast.makeText(VendorHomeScreen.this, previousOrders.getOrder().getObjectId() + " was confirmed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        alertBuilder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i(TAG, " You selected 'No' to confirm the restaurant: " + previousOrders.getOrder().getObjectId());
+                        Toast.makeText(VendorHomeScreen.this, previousOrders.getOrder().getObjectId() + " was not confirmed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        alertBuilder.setCancelable(true);
+
+        alertBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Log.i(TAG, " You cancelled the Alert Dialog");
+                Toast.makeText(VendorHomeScreen.this, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alertBuilder.create().show();
     }
 }
