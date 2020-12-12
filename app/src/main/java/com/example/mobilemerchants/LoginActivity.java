@@ -100,11 +100,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void done(ParseUser user, ParseException e) {
-
-//                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
-//                                        startActivity(i);
-
-
+                                    if(user != null){
                                         if (user.get("role").equals("user")) {
                                             // TODO: better error handling
                                             goMainActivity();
