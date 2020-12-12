@@ -9,6 +9,7 @@ import com.parse.ParseUser;
 @ParseClassName("Restaurants")
 public class Restaurant extends ParseObject {
 
+    public static final String KEY_ID = "objectId";
     public static final String KEY_NAME = "RestaurantName";
     public static final String KEY_DESCRIPTION = "RestaurantDescription";
     public static final String KEY_CONFIRMED = "Confirmed";
@@ -21,6 +22,8 @@ public class Restaurant extends ParseObject {
     public String getName() {
         return getString(KEY_NAME);
     }
+
+    public String getObjectId(){ return getString(KEY_ID);}
 
     public void setRestaurantName(String name) {
         put(KEY_NAME, name);
