@@ -2,6 +2,8 @@ package com.example.mobilemerchants;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
+import android.app.role.RoleManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +13,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+
+import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
+import com.example.mobilemerchants.Adapters.UserAccount;
+
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -25,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     Button btnSignup;
     Button btnAdmin;
     ParseUser user = ParseUser.getCurrentUser();
+
+    UserAccount check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,27 +74,37 @@ public class LoginActivity extends AppCompatActivity {
         btnAdmin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
+
+
+                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class); // should start at Vendor home screen for testing its now set to vendor order display .
+
+             //   Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
+
                 startActivity(i);
-            }
+          }
         });
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
                 if (TextUtils.isEmpty(etUsername.getText())) {
                     etUsername.setError("User name is required!");
                 } else if (TextUtils.isEmpty(etPassword.getText())) {
                     etPassword.setError("Password is required");
-                } else {
-                    ParseUser.logInInBackground(etUsername.getText().toString(),
+            } else {
+                   ParseUser.logInInBackground(etUsername.getText().toString(),
                             etPassword.getText().toString(),
                             new LogInCallback() {
 
                                 @Override
                                 public void done(ParseUser user, ParseException e) {
-                                    if (user != null) {
+
+//                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
+//                                        startActivity(i);
+
+
                                         if (user.get("role").equals("user")) {
                                             // TODO: better error handling
                                             goMainActivity();
@@ -104,6 +123,7 @@ public class LoginActivity extends AppCompatActivity {
                                             Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class);
                                             startActivity(i);
                                         }
+
                                     } else {
                                         ParseUser.logOut();
                                         Toast.makeText(LoginActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -119,11 +139,25 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goMainActivity(){
-        Intent i = new Intent(this, RestaurantDisplay.class);
+
+
+        Intent i = new Intent(this, FoodDisplay.class);
         startActivity(i);
         finish();
     }
-}
+    private void goVendorActivity(){
 
+        Intent i = new Intent(this, VendorOrderDisplay.class);
+
+        startActivity(i);
+        finish();
+    }
+    private void goAdminActivity(){
+        Intent i = new Intent(this, AdminConfirmActivity.class);
+        startActivity(i);
+        finish();
+
+    }
+}
 
 

@@ -1,13 +1,14 @@
 package com.example.mobilemerchants;
 
 
+import androidx.annotation.LongDef;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +25,9 @@ import com.parse.ParseQuery;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodDisplay extends AppCompatActivity {
+import static com.example.mobilemerchants.Adapters.FoodItemAdapter.*;
+
+public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.OnFoodListener {
 
     private Toolbar toolbar;
     TextView tvFoodName;
@@ -53,7 +56,8 @@ public class FoodDisplay extends AppCompatActivity {
         btnGoBack = findViewById(R.id.btnGoBack);
 
         allOrders = new ArrayList<>();
-        adapter = new FoodItemAdapter(this, allOrders);
+        // adding interface to constructor. ar
+        adapter = new FoodItemAdapter(this, allOrders, this);
         rvFoodDisplay.setAdapter(adapter);
         rvFoodDisplay.setLayoutManager(new LinearLayoutManager(this));
         queryFoods();
@@ -94,5 +98,10 @@ public class FoodDisplay extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+    // navigation to new activity
+    @Override
+    public void onFoodClick(int position) {
+
     }
 }

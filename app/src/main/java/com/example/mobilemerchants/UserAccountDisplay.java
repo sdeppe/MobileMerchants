@@ -44,8 +44,11 @@ public class UserAccountDisplay extends AppCompatActivity  {
     EditText etUpdateUsername;
     EditText etUpdatePassword;
     RecyclerView rvPastOrders;
-    Button btnUpdate;
+    // add ar
+    EditText etUpdateRole;
+    Button btnConfirm;
     Button btnLogout;
+    Button btnNewOrder;
 
 
 
@@ -60,8 +63,13 @@ public class UserAccountDisplay extends AppCompatActivity  {
         etUpdateUsername = findViewById(R.id.etUpdateUsername);
         etUpdatePassword = findViewById(R.id.etUpdatePassword);
         rvPastOrders = findViewById(R.id.rvCurrentOrders);
-        btnUpdate = findViewById(R.id.btnUpdate);
+        // add ar
+        etUpdateRole = findViewById(R.id.etRole);
+
+
+        btnConfirm = findViewById(R.id.btnConfirm);
         btnLogout = findViewById(R.id.btnLogout);
+
 
         allOrders = new ArrayList<>();
         adapter = new AccountDisplayAdapter(this, allOrders);
@@ -86,7 +94,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 
 
-        btnUpdate.setOnClickListener(new View.OnClickListener() {
+        btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent i = new Intent(UserAccountDisplay.this, RestaurantDisplay.class);
@@ -105,6 +113,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
                 Toast.makeText(UserAccountDisplay.this, "Signed out", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 
@@ -119,7 +128,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
                     return;
                 }
                 for (UserAccount user : orders) {
-                    Log.i(TAG, "User: " + user.getUsername() + ", First Name: " + user.getUserFirstName() + ", Last Name: " + user.getUserLastName() + ", Password:" + user.getPassword());
+                    Log.i(TAG, "User: " + user.getUsername() + ", First Name: " + user.getUserFirstName() + ", Last Name: " + user.getUserLastName() + ", Password:" + user.getPassword() + ", role:"+ user.getUserRole());
                 }
                 allOrders.addAll(orders);
                 adapter.notifyDataSetChanged();

@@ -24,7 +24,7 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VendorRestaurantDisplay extends AppCompatActivity {
+public class VendorRestaurantDisplay extends AppCompatActivity implements FoodItemAdapter.OnFoodListener {
     public static final String TAG = "VendorRestaurantDisplay";
 
     //todo display items
@@ -49,7 +49,7 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
         btnVendorAddItem = findViewById(R.id.btnVendorAddItem);
 
         allFood = new ArrayList<>();
-        adapter = new FoodItemAdapter(this, allFood);
+        adapter = new FoodItemAdapter(this, allFood,this);
         rvRestaurantItems.setAdapter(adapter);
         rvRestaurantItems.setLayoutManager(new LinearLayoutManager(this));
         queryFood();
@@ -90,5 +90,10 @@ public class VendorRestaurantDisplay extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onFoodClick(int position) {
+
     }
 }
