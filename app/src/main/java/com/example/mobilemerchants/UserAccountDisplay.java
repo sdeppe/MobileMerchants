@@ -17,7 +17,8 @@ import android.widget.Toast;
 
 
 import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
-import com.example.mobilemerchants.Adapters.UserAccount;
+import com.example.mobilemerchants.Adapters.PreviousOrders;
+import com.example.mobilemerchants.Adapters.PreviousOrdersAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -34,8 +35,12 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
     private Toolbar toolbar;
 
-    List<UserAccount> info;
-    AccountDisplayAdapter adapter;
+
+    List<PreviousOrders> allorders;
+
+    //AccountDisplayAdapter adapter;
+
+    PreviousOrdersAdapter adapter1;
 
     ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
 
@@ -47,7 +52,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
     RecyclerView rvPastOrders;
     // add ar
-     EditText etUpdateRole;
+    EditText etUpdateRole;
     Button btnConfirm;
     Button btnLogout;
 
@@ -58,6 +63,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user_account_display);
 
         tvUserFirstName = findViewById(R.id.etUserFirstName);
@@ -73,10 +79,15 @@ public class UserAccountDisplay extends AppCompatActivity  {
         btnLogout = findViewById(R.id.btnLogout);
 
 
-        info = new ArrayList<>();
-        adapter = new AccountDisplayAdapter(this, info);
+       // info = new ArrayList<PreviousOrders>();
+        allorders = new ArrayList<>();
 
-        rvPastOrders.setAdapter(adapter);
+       // adapter = new AccountDisplayAdapter(this, info);
+
+        adapter1 = new PreviousOrdersAdapter(this,allorders);
+
+        rvPastOrders.setAdapter(adapter1);
+
         rvPastOrders.setLayoutManager(new LinearLayoutManager(this));
         queryUserInfo();
 
@@ -87,7 +98,7 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 //        ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
 //        query.whereEqualTo("user", "testUser");
-      //  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+        //  toolbar.setNavigationOnClickListener(new View.OnClickListener() {
 
 
 
@@ -122,19 +133,19 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 
     private void  queryUserInfo() {
-        ParseQuery<UserAccount> query = ParseQuery.getQuery(UserAccount.class);
-        query.findInBackground(new FindCallback<UserAccount>() {
+        ParseQuery<PreviousOrders> query = ParseQuery.getQuery(PreviousOrders.class);
+        query.findInBackground(new FindCallback<PreviousOrders>() {
             @Override
-            public void done(List<UserAccount> Uinfo, ParseException e) {
+            public void done(List<PreviousOrders> orders, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting post", e);
                     return;
                 }
-                for (UserAccount user : Uinfo) {
-                    Log.i(TAG, "User: " + user.getUsername() + ", First Name: " + user.getUserFirstName() + ", Last Name: " + user.getUserLastName() );
+                for (PreviousOrders user : orders) {
+                    Log.i(TAG, "Your order: " + user.getOrder() + ", Restaurant Name: " + user.getRestaurant() + ", Total: " + user.getTotal() );
                 }
-                info.addAll(Uinfo);
-                adapter.notifyDataSetChanged();
+                allorders.addAll(orders);
+                adapter1.notifyDataSetChanged();
             }
         });
     }
