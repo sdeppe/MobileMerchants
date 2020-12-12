@@ -42,7 +42,8 @@ public class RestaurantDisplay extends AppCompatActivity {
                 Restaurant restaurant = allRestaurants.get(position);
                 Log.d(TAG, restaurant.getName() + restaurant.getConfirmed());
                 Intent i = new Intent(RestaurantDisplay.this, FoodDisplay.class);
-                i.putExtra("restaurant",restaurant.getName());
+                String restaurantId = restaurant.getObjectId();
+                i.putExtra("restaurant",restaurantId);
                 startActivity(i);
             }
         };
