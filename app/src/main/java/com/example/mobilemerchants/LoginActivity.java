@@ -2,6 +2,8 @@ package com.example.mobilemerchants;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.accounts.Account;
+import android.app.role.RoleManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -11,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.mobilemerchants.Adapters.AccountDisplayAdapter;
 import com.example.mobilemerchants.Adapters.UserAccount;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -25,6 +28,8 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     Button btnSignup;
     Button btnAdmin;
+
+    UserAccount check;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent i = new Intent(LoginActivity.this, VendorHomeScreen.class); // should start at Vendor home screen for testing its now set to vendor order display .
+                Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class); // should start at Vendor home screen for testing its now set to vendor order display .
 
              //   Intent i = new Intent(LoginActivity.this, AdminConfirmActivity.class);
 
@@ -70,6 +75,7 @@ public class LoginActivity extends AppCompatActivity {
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
+
             public void onClick(View view) {
 
 
@@ -85,13 +91,18 @@ public class LoginActivity extends AppCompatActivity {
 
                                 @Override
                                 public void done(ParseUser user, ParseException e) {
+
                                     if (user != null) {
                                         // TODO: better error handling
 
                                         Toast.makeText(LoginActivity.this, "Welcome Back!", Toast.LENGTH_SHORT).show();
-
-                                        goAdminActivity();
-
+                                        if( check.getUserRole() == "admin"){
+                                          goAdminActivity();
+                                         } if(check.getUserRole() == "vendor"){
+                                            goVendorActivity();
+                                        } if(check.getUserRole() == "user"){
+                                            goMainActivity();
+                                        }
 
 //                                        Intent i = new Intent(LoginActivity.this, FoodDisplay.class);
 //                                        startActivity(i);
@@ -112,26 +123,22 @@ public class LoginActivity extends AppCompatActivity {
     }
     private void goMainActivity(){
 
-        Intent i = new Intent(this, VendorHomeScreen.class);
+        Intent i = new Intent(this, FoodDisplay.class);
         startActivity(i);
         finish();
     }
-    private void goAdminActivity(){
+    private void goVendorActivity(){
 
         Intent i = new Intent(this, VendorOrderDisplay.class);
         startActivity(i);
         finish();
     }
+    private void goAdminActivity(){
+        Intent i = new Intent(this, AdminConfirmActivity.class);
+        startActivity(i);
+        finish();
+
+    }
 }
 
 
-10
-0
-
-
-
-
-
-
-
--+

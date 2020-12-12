@@ -28,7 +28,7 @@ public class VendorOrderDisplay extends AppCompatActivity {
     private Toolbar toolbar;
     RecyclerView rvCurrentOrders;
     Button btnBack;
-    Button btnSignOut;
+    Button btnBKVendorHome;
 
     List<VendorOrders> allCurrentOrders; // recheck ....
     VendorOrderDisplayAdapter adapter;
@@ -40,7 +40,7 @@ public class VendorOrderDisplay extends AppCompatActivity {
 
        rvCurrentOrders = findViewById(R.id.rvCurrentOrders);
         btnBack = findViewById(R.id.btnBack);
-        btnSignOut = findViewById(R.id.btnSignOut);
+        btnBKVendorHome = findViewById(R.id.btnBktoVendHome);
 
         allCurrentOrders = new ArrayList<>();
         adapter = new VendorOrderDisplayAdapter(this, allCurrentOrders);
@@ -72,10 +72,10 @@ public class VendorOrderDisplay extends AppCompatActivity {
         });
 
         // todo make sure user is correctly signed out
-        btnSignOut.setOnClickListener(new View.OnClickListener() {
+        btnBKVendorHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(VendorOrderDisplay.this, LoginActivity.class);
+                Intent i = new Intent(VendorOrderDisplay.this, VendorHomeScreen.class);
                 startActivity(i);
             }
         });

@@ -13,17 +13,30 @@ public class UserAccount extends ParseObject {
     public static final String KEY_FIRST_NAME = "firstName";
     public static final String KEY_LAST_NAME = "lastName";
     public static final String KEY_PASSWORD = "password";
+    // added ar
+    public static final String KEY_ROLE = "role";
 
 
     public UserAccount() {
         super();
     }
 
+   // added ar
+    public void setRole(String role){
+        put(KEY_ROLE,role);
+    }
+    //add ar
+    public String getUserRole() {
+
+        return getString(KEY_ROLE);
+    }
+
+
+
     public String getUsername() {
 
         return getString(KEY_USERNAME);
     }
-
     public void setUserName(String username) {
         put(KEY_USERNAME, username);
     }
@@ -32,8 +45,8 @@ public class UserAccount extends ParseObject {
         return KEY_FIRST_NAME;
     }
 
-    public void setUserFirstName(String firstName) {
-        put(KEY_FIRST_NAME, firstName);
+    public void setUserFirstName(String firstName){
+    put(KEY_FIRST_NAME, firstName);
     }
 
     public static String getUserLastName() {
@@ -51,5 +64,6 @@ public class UserAccount extends ParseObject {
     public void setPassword(String password) {
         put(KEY_PASSWORD, password);
     }
+
 
 }

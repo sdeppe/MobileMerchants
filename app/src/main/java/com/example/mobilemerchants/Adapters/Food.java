@@ -12,10 +12,14 @@ public class Food extends ParseObject {
     public static final String KEY_NAME = "FoodName";
     public static final String KEY_DESCRIPTION = "FoodDescription";
     public static final String KEY_PRICE = "FoodPrice";
-     public static final String KEY_VENDOR = "RestaurantShop";
+    public static final String KEY_VENDOR = "RestaurantShop";
 
     public Food() {
         super();
+    }
+
+    public void changeText1(String text){
+
     }
 
     public String getFoodName() {

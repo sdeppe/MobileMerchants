@@ -17,17 +17,19 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
 
     private Context context;
     private List<Food> foods;
+    private OnFoodListener mOnFoodListener;
 
-    public FoodItemAdapter(Context context, List<Food> foods) {
+    public FoodItemAdapter(Context context, List<Food> foods, OnFoodListener onFoodListener) {
         this.context = context;
         this.foods = foods;
+        this.mOnFoodListener = onFoodListener;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.item_food, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mOnFoodListener);
     }
 
     @Override
@@ -42,18 +44,24 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
     }
 
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         private TextView tvFoodName;
         private TextView tvFoodDescription;
         private TextView tvFoodPrice;
 
-        public ViewHolder (@NonNull View itemView) {
+        OnFoodListener onFoodListener;
+        public ViewHolder (@NonNull View itemView, OnFoodListener onFoodListener ) {
             super(itemView);
             tvFoodName = itemView.findViewById(R.id.tvUser);
             tvFoodDescription = itemView.findViewById(R.id.tvItem);
             tvFoodPrice = itemView.findViewById(R.id.tvCost);
 
+            this.onFoodListener =  onFoodListener;
+            itemView.setOnClickListener(this);
+
         }
+
+
 
         public void bind(Food food){
             tvFoodName.setText(food.getFoodName());
@@ -61,5 +69,14 @@ public class FoodItemAdapter extends RecyclerView.Adapter<FoodItemAdapter.ViewHo
             tvFoodPrice.setText(String.valueOf(food.getFoodPrice()));
 
         }
+
+        @Override
+        public void onClick(View v) {
+                onFoodListener.onFoodClick(getAdapterPosition());
+        }
+    }
+    // detects and interprets click
+    public interface OnFoodListener{
+        void onFoodClick(int position);
     }
 }
