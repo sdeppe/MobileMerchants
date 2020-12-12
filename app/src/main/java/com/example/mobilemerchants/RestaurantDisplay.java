@@ -36,11 +36,22 @@ public class RestaurantDisplay extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_display);
 
+        RestaurantsAdapter.OnClickListener onClickListener = new RestaurantsAdapter.OnClickListener() {
+            @Override
+            public void onItemClicked(int position) {
+                Restaurant restaurant = allRestaurants.get(position);
+                Log.d(TAG, restaurant.getName() + restaurant.getConfirmed());
+                Intent i = new Intent(RestaurantDisplay.this, FoodDisplay.class);
+                i.putExtra("restaurant",restaurant.getName());
+                startActivity(i);
+            }
+        };
+
         btnEditProfile = findViewById(R.id.btnEditProfile);
         rvRestaurants = findViewById(R.id.rvRestaurantItems);
 
         allRestaurants = new ArrayList<>();
-        adapter = new RestaurantsAdapter(this, allRestaurants);
+        adapter = new RestaurantsAdapter(this, allRestaurants, onClickListener);
         rvRestaurants.setAdapter(adapter);
         rvRestaurants.setLayoutManager(new LinearLayoutManager(this));
         queryRestaurants();

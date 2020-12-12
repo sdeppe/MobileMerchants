@@ -6,15 +6,16 @@ import com.parse.ParseObject;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
-@ParseClassName("UserAccount")
+@ParseClassName("User")
 public class UserAccount extends ParseObject {
 
     public static final String KEY_USERNAME = "username";
     public static final String KEY_FIRST_NAME = "firstName";
     public static final String KEY_LAST_NAME = "lastName";
     public static final String KEY_PASSWORD = "password";
-    // added ar
+
     public static final String KEY_ROLE = "role";
+
 
 
     public UserAccount() {
@@ -37,6 +38,11 @@ public class UserAccount extends ParseObject {
 
         return getString(KEY_USERNAME);
     }
+
+
+    public String getRole(){ return KEY_ROLE;}
+
+
     public void setUserName(String username) {
         put(KEY_USERNAME, username);
     }

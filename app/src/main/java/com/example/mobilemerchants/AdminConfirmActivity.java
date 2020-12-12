@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.mobilemerchants.Adapters.Restaurant;
 import com.example.mobilemerchants.Adapters.RestaurantsAdapter;
+import com.example.mobilemerchants.UserAccountDisplay;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -43,6 +44,15 @@ public class AdminConfirmActivity extends AppCompatActivity {
 
         btnEditProfile = findViewById(R.id.btnEditProfile);
         rvRestaurants = findViewById(R.id.rvRestaurantItems);
+
+//        RestaurantsAdapter.OnClickListener onClickListener = new RestaurantsAdapter.OnClickListener() {
+//            @Override
+//            public void onItemClicked(int position) {
+//                Restaurant restaurant = allRestaurants.get(position);
+//                Log.d(TAG, restaurant.getName() + restaurant.getConfirmed());
+//                alertMaker(restaurant);
+//            }
+//        };
 
         RestaurantsAdapter.OnClickListener onClickListener = new RestaurantsAdapter.OnClickListener() {
             @Override
