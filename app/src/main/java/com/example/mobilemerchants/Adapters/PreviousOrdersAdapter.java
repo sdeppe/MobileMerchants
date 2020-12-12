@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.mobilemerchants.R;
+import com.example.mobilemerchants.UserAccountDisplay;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAdapter.ViewHolder> {
+
 
     public interface OnClickListener{
         void onItemClicked(int position);
@@ -28,6 +30,12 @@ public class PreviousOrdersAdapter extends RecyclerView.Adapter<PreviousOrdersAd
         this.context = context;
         this.previousOrders = previousOrders;
         this.clickListener = clickListener;
+    }
+
+    public PreviousOrdersAdapter(Context context, List<PreviousOrders> previousOrders) {
+        this.context = context;
+        this.previousOrders = previousOrders;
+
     }
 
     @NonNull

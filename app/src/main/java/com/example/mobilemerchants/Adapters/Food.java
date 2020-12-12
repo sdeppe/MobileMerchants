@@ -18,9 +18,6 @@ public class Food extends ParseObject {
         super();
     }
 
-    public void changeText1(String text){
-
-    }
 
     public String getFoodName() {
         return getString(KEY_NAME);

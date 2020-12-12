@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mobilemerchants.R;
-import com.parse.ParseFile;
 
 import java.util.List;
 
@@ -47,23 +46,23 @@ public class AccountDisplayAdapter extends RecyclerView.Adapter<AccountDisplayAd
         private TextView etFirstNameUpdate;
         private TextView etUpdateLastName;
         private TextView etUpdateUserName;
-        private TextView etUpdatePassword;
+
 
 
 
         public ViewHolder (@NonNull View itemView) {
             super(itemView);
-            etFirstNameUpdate = itemView.findViewById(R.id.etFirstNameUpdate);
-           etUpdateLastName = itemView.findViewById(R.id.etUpdateLastName);
-           etUpdateUserName = itemView.findViewById(R.id.etUpdateUsername);
-           etUpdatePassword = itemView.findViewById(R.id.etUpdatePassword);
+            etFirstNameUpdate = itemView.findViewById(R.id.etUserFirstName);
+           etUpdateLastName = itemView.findViewById(R.id.etUserLastName);
+           etUpdateUserName = itemView.findViewById(R.id.etUserUsername);
+
         }
 
         public void bind(UserAccount user){
             etFirstNameUpdate.setText(user.getUserFirstName());
             etUpdateLastName.setText(user.getUserLastName());
             etUpdateUserName.setText(user.getUsername());
-            etUpdatePassword.setText(user.getPassword());
+
         }
     }
 }
