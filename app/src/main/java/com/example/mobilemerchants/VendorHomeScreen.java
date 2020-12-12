@@ -138,7 +138,6 @@ public class VendorHomeScreen extends AppCompatActivity {
                     return;
                 }
                 for (Restaurant restaurant : restaurants) {
-                    // Log.i(TAG, restaurant.getOwner().get("username") + " -> " + ParseUser.getCurrentUser().getObjectId());
                     if(restaurant.getOwner().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
                         currentRestaurant = restaurant;
                         Log.i(TAG, "NAME -> " + restaurant.getName());
@@ -146,7 +145,6 @@ public class VendorHomeScreen extends AppCompatActivity {
 
                     }
                 }
-                //adapter.notifyDataSetChanged();
             }
         });
     }
