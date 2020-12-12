@@ -31,4 +31,7 @@ public class PreviousOrders extends ParseObject {
     public Boolean getApproved() {
         return getBoolean(KEY_APPROVED);
     }
+
+    public void setConfirmed(Boolean confirmation){put(KEY_APPROVED, confirmation); }
+
 }
