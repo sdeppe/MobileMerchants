@@ -40,9 +40,10 @@ public class RestaurantDisplay extends AppCompatActivity {
             @Override
             public void onItemClicked(int position) {
                 Restaurant restaurant = allRestaurants.get(position);
-                Log.d(TAG, restaurant.getName() + restaurant.getConfirmed());
+                Log.d(TAG, restaurant.getName() + restaurant.getConfirmed() + " " + restaurant.getObjectId());
                 Intent i = new Intent(RestaurantDisplay.this, FoodDisplay.class);
-                i.putExtra("restaurant",restaurant.getName());
+                String restaurantId = restaurant.getObjectId();
+                i.putExtra("restaurant", restaurantId);
                 startActivity(i);
             }
         };

@@ -22,10 +22,15 @@ import android.widget.Toast;
 
 import com.example.mobilemerchants.Adapters.Food;
 import com.example.mobilemerchants.Adapters.FoodItemAdapter;
+import com.example.mobilemerchants.Adapters.PreviousOrders;
 import com.example.mobilemerchants.Adapters.Restaurant;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.parse.SignUpCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,13 +45,15 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
 
     public static final String TAG = "FoodDisplay";
 
-
-
     RecyclerView rvFoodDisplay;
     Button btnGoBack;
 
     List<Food> allOrders;
     FoodItemAdapter adapter;
+
+    String restaurantID;
+    ParseUser user;
+    String userId;
 
 
     @Override
@@ -54,6 +61,15 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_food_display);
+
+        Intent intent = getIntent();
+        intent.getStringExtra("restaurant");
+        Log.d(TAG, "Restaurantid = " + restaurantID);
+        restaurantID = "vQPJ2pwAer";
+        Log.d(TAG,"Restaurant id:" + restaurantID);
+
+        user = ParseUser.getCurrentUser();
+        userId = user.getObjectId();
 
         tvFoodName = findViewById(R.id.tvUser);
         rvFoodDisplay = findViewById(R.id.rvFoodDisplay);
@@ -112,6 +128,37 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
         alertMaker(food);
     }
 
+    public void createOrder(String userID, Double foodPrice, String foodID, String restaurantID) {
+        PreviousOrders previousOrders = new PreviousOrders();
+        previousOrders.put("User",userID);
+        previousOrders.put("OrderedItems",1);
+        previousOrders.put("OrderTotal",foodPrice);
+        previousOrders.put("Approved", false);
+        previousOrders.put("OrderedItem",foodID);
+        previousOrders.put("Restaurant",restaurantID);
+
+        // Other fields can be set just like any other ParseObject,
+        // using the "put" method, like this: user.put("attribute", "its value");
+        // If this field does not exists, it will be automatically created
+        previousOrders.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                if (e == null) {
+                    // Hooray! Let them use the app now.
+                    Toast.makeText(FoodDisplay.this,"Success!",Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(FoodDisplay.this, RestaurantDisplay.class);
+                    startActivity(i);
+                } else {
+                    // Sign up didn't succeed. Look at the ParseException
+                    // to figure out what went wrong
+//                    Log.e(TAG,"Error", e);
+//                    Toast.makeText(FoodDisplay.this,"Error!",Toast.LENGTH_LONG).show();
+
+                }
+            }
+        });
+    }
+
     private void alertMaker(final Food food) {
         AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FoodDisplay.this);
 
@@ -123,6 +170,7 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
                     public void onClick(DialogInterface dialog, int which) {
                         adapter.notifyDataSetChanged();
                         Log.i(TAG, " You selected 'Yes' to purchase the food: " + food.getFoodName());
+                        createOrder(userId,food.getFoodPrice(),food.getObjectId(),restaurantID);
                         Toast.makeText(FoodDisplay.this, food.getFoodName() + " was confirmed.", Toast.LENGTH_SHORT).show();
                     }
                 });

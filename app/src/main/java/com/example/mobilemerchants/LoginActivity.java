@@ -135,9 +135,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     private void goMainActivity(){
-
-
-        Intent i = new Intent(this, FoodDisplay.class);
+        Intent i = new Intent(this, RestaurantDisplay.class);
         startActivity(i);
         finish();
     }
