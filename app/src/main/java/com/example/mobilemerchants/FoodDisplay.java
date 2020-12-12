@@ -63,6 +63,8 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
         setContentView(R.layout.activity_food_display);
 
         Intent intent = getIntent();
+        intent.getStringExtra("restaurant");
+        Log.d(TAG, "Restaurantid = " + restaurantID);
         restaurantID = "vQPJ2pwAer";
         Log.d(TAG,"Restaurant id:" + restaurantID);
 
