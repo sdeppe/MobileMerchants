@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -32,23 +33,24 @@ public class UserAccountDisplay extends AppCompatActivity  {
     public static final String TAG = "UserAccountDisplay";
 
     private Toolbar toolbar;
-    List<UserAccount> allOrders;
+
+    List<UserAccount> info;
     AccountDisplayAdapter adapter;
 
     ParseQuery<ParseObject> query = ParseQuery.getQuery("itemName");
 
-   
 
-    EditText etFirstNameUpdate;
-    EditText etUpdateLastName;
-    EditText etUpdateUsername;
-    EditText etUpdatePassword;
+
+    TextView tvUserFirstName;
+    TextView tvUserLastName;
+    TextView tvUserUsername;
+
     RecyclerView rvPastOrders;
     // add ar
-    EditText etUpdateRole;
+     EditText etUpdateRole;
     Button btnConfirm;
     Button btnLogout;
-    Button btnNewOrder;
+
 
 
 
@@ -58,12 +60,12 @@ public class UserAccountDisplay extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_account_display);
 
-        etFirstNameUpdate = findViewById(R.id.etFirstNameUpdate);
-        etUpdateLastName = findViewById(R.id.etUpdateLastName);
-        etUpdateUsername = findViewById(R.id.etUpdateUsername);
-        etUpdatePassword = findViewById(R.id.etUpdatePassword);
+        tvUserFirstName = findViewById(R.id.etUserFirstName);
+        tvUserLastName = findViewById(R.id.etUserLastName);
+        tvUserUsername = findViewById(R.id.etUserUsername);
+
         rvPastOrders = findViewById(R.id.rvCurrentOrders);
-        // add ar
+
         etUpdateRole = findViewById(R.id.etRole);
 
 
@@ -71,11 +73,12 @@ public class UserAccountDisplay extends AppCompatActivity  {
         btnLogout = findViewById(R.id.btnLogout);
 
 
-        allOrders = new ArrayList<>();
-        adapter = new AccountDisplayAdapter(this, allOrders);
+        info = new ArrayList<>();
+        adapter = new AccountDisplayAdapter(this, info);
+
         rvPastOrders.setAdapter(adapter);
         rvPastOrders.setLayoutManager(new LinearLayoutManager(this));
-        queryPreviousOrders();
+        queryUserInfo();
 
         toolbar = findViewById(R.id.myToolBar);
         setSupportActionBar(toolbar);
@@ -118,19 +121,19 @@ public class UserAccountDisplay extends AppCompatActivity  {
 
 
 
-    private void  queryPreviousOrders() {
+    private void  queryUserInfo() {
         ParseQuery<UserAccount> query = ParseQuery.getQuery(UserAccount.class);
         query.findInBackground(new FindCallback<UserAccount>() {
             @Override
-            public void done(List<UserAccount> orders, ParseException e) {
+            public void done(List<UserAccount> Uinfo, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issue with getting post", e);
                     return;
                 }
-                for (UserAccount user : orders) {
-                    Log.i(TAG, "User: " + user.getUsername() + ", First Name: " + user.getUserFirstName() + ", Last Name: " + user.getUserLastName() + ", Password:" + user.getPassword() + ", role:"+ user.getUserRole());
+                for (UserAccount user : Uinfo) {
+                    Log.i(TAG, "User: " + user.getUsername() + ", First Name: " + user.getUserFirstName() + ", Last Name: " + user.getUserLastName() );
                 }
-                allOrders.addAll(orders);
+                info.addAll(Uinfo);
                 adapter.notifyDataSetChanged();
             }
         });

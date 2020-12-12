@@ -102,6 +102,6 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
     // navigation to new activity
     @Override
     public void onFoodClick(int position) {
-
+        Log.d(TAG ,"OnFoodClick: onclick");
     }
 }
