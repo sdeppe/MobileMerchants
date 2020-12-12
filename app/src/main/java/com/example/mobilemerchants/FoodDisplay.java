@@ -2,10 +2,13 @@ package com.example.mobilemerchants;
 
 
 import androidx.annotation.LongDef;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 
 import android.nfc.Tag;
@@ -14,10 +17,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.example.mobilemerchants.Adapters.Food;
 import com.example.mobilemerchants.Adapters.FoodItemAdapter;
+import com.example.mobilemerchants.Adapters.Restaurant;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -102,6 +107,45 @@ public class FoodDisplay extends AppCompatActivity implements FoodItemAdapter.On
     // navigation to new activity
     @Override
     public void onFoodClick(int position) {
-        Log.d(TAG ,"OnFoodClick: onclick");
+        Log.i(TAG,"OnClick");
+        Food food = allOrders.get(position);
+        alertMaker(food);
+    }
+
+    private void alertMaker(final Food food) {
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(FoodDisplay.this);
+
+        alertBuilder.setMessage("Would you like to purchase this " + food.getFoodName() + "?");
+
+        alertBuilder.setPositiveButton("YES",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        adapter.notifyDataSetChanged();
+                        Log.i(TAG, " You selected 'Yes' to purchase the food: " + food.getFoodName());
+                        Toast.makeText(FoodDisplay.this, food.getFoodName() + " was confirmed.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        alertBuilder.setNegativeButton("No",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Log.i(TAG, " You selected 'No' to confirm the food: " + food.getFoodName());
+                        Toast.makeText(FoodDisplay.this, food.getFoodName() + " was not purchased.", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        alertBuilder.setCancelable(true);
+
+        alertBuilder.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                Log.i(TAG, " You cancelled the Alert Dialog");
+                Toast.makeText(FoodDisplay.this, "Cancelled", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        alertBuilder.create().show();
     }
 }
