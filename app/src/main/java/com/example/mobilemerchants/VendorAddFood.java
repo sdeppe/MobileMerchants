@@ -47,7 +47,9 @@ public class VendorAddFood extends AppCompatActivity {
                 String FoodPrice = etPrice.getText().toString();
                 Double tempPrice = Double.valueOf(FoodPrice);
                 Number price = (Number)tempPrice;
-
+                Bundle bundle = new Bundle();
+                bundle.getString("Restaurant");
+//                bundle.getString("User");
 //                ParseObject food = new ParseObject("Food");
                 ParseQuery<ParseObject> Food = ParseQuery.getQuery("RestaurantShop");
                 //"RestaurantShop": { "__type": "Pointer", "className": "Restaurants", "objectId": "<THE_REFERENCED_OBJECT_ID>"
